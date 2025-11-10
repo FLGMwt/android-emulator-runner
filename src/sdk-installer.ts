@@ -29,8 +29,6 @@ export async function installAndroidSdk(
     const isArm = process.arch === 'arm64';
 
     const cmdlineToolsPath = `${process.env.ANDROID_HOME}/cmdline-tools`;
-    console.log(process.env);
-    console.log(`cmdlineToolsPath: ${cmdlineToolsPath}`);
     fs.readdirSync(cmdlineToolsPath).forEach((file) => {
       console.log(`${file} | isdir: ${fs.lstatSync(`${cmdlineToolsPath}/${file}`).isDirectory()}`);
     });
@@ -50,14 +48,14 @@ export async function installAndroidSdk(
     core.exportVariable('ANDROID_AVD_HOME', `${process.env.HOME}/.android/avd`);
 
     // accept all Android SDK licenses
-    await exec.exec(`sh -c \\"yes | sdkmanager --licenses > /dev/null"`);
+    // await exec.exec(`sh -c \\"yes | sdkmanager --licenses > /dev/null"`);
 
-    console.log('Installing latest build tools, platform tools, and platform.');
+    // console.log('Installing latest build tools, platform tools, and platform.');
 
-    await exec.exec(`sh -c \\"sdkmanager --install 'build-tools;${BUILD_TOOLS_VERSION}' platform-tools 'platforms;android-${apiLevel}'> /dev/null"`);
+    // await exec.exec(`sh -c \\"sdkmanager --install 'build-tools;${BUILD_TOOLS_VERSION}' platform-tools 'platforms;android-${apiLevel}'> /dev/null"`);
 
-    console.log('Installing latest emulator.');
-    await exec.exec(`sh -c \\"sdkmanager --install emulator --channel=${channelId} > /dev/null"`);
+    // console.log('Installing latest emulator.');
+    // await exec.exec(`sh -c \\"sdkmanager --install emulator --channel=${channelId} > /dev/null"`);
 
     if (emulatorBuild) {
       console.log(`Installing emulator build ${emulatorBuild}.`);
@@ -79,8 +77,8 @@ export async function installAndroidSdk(
       await exec.exec(`unzip -o -q emulator.zip -d ${process.env.ANDROID_HOME}`);
       await io.rmRF('emulator.zip');
     }
-    console.log('Installing system images.');
-    await exec.exec(`sh -c \\"sdkmanager --install 'system-images;android-${systemImageApiLevel};${target};${arch}' --channel=${channelId} > /dev/null"`);
+    // console.log('Installing system images.');
+    // await exec.exec(`sh -c \\"sdkmanager --install 'system-images;android-${systemImageApiLevel};${target};${arch}' --channel=${channelId} > /dev/null"`);
 
     if (ndkVersion) {
       console.log(`Installing NDK ${ndkVersion}.`);
