@@ -29,6 +29,10 @@ export async function installAndroidSdk(
     const isArm = process.arch === 'arm64';
 
     const cmdlineToolsPath = `${process.env.ANDROID_HOME}/cmdline-tools`;
+    console.log(`cmdlineToolsPath: ${cmdlineToolsPath}`);
+    fs.readdirSync(cmdlineToolsPath).forEach((file) => {
+      console.log(`${file} | isdir: ${fs.lstatSync(`${cmdlineToolsPath}/${file}`).isDirectory()}`);
+    });
     if (!fs.existsSync(cmdlineToolsPath)) {
       console.log('Installing new cmdline-tools.');
       const sdkUrl = isOnMac ? CMDLINE_TOOLS_URL_MAC : CMDLINE_TOOLS_URL_LINUX;
