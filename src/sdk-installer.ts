@@ -29,6 +29,7 @@ export async function installAndroidSdk(
     const isArm = process.arch === 'arm64';
 
     const cmdlineToolsPath = `${process.env.ANDROID_HOME}/cmdline-tools`;
+    console.log(`process.env: ${cmdlineToolsPath}`);
     console.log(`cmdlineToolsPath: ${cmdlineToolsPath}`);
     fs.readdirSync(cmdlineToolsPath).forEach((file) => {
       console.log(`${file} | isdir: ${fs.lstatSync(`${cmdlineToolsPath}/${file}`).isDirectory()}`);
